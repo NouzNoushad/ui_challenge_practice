@@ -5,6 +5,7 @@ import 'package:ui_challenge_practice/filter_menu/filter_menu_screen.dart';
 import 'package:ui_challenge_practice/kinetic_poster/kinetic_poster.dart';
 import 'package:ui_challenge_practice/twitter_effect/clip_path_screen.dart';
 import 'package:ui_challenge_practice/twitter_effect/theme_switcher.dart';
+import 'package:ui_challenge_practice/ui_design/call_ui_design.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: false,
       ),
       debugShowCheckedModeBanner: false,
-      home: const DragDropScreen(),
+      home: const PhoneCallUiDesign(),
     );
   }
 }
