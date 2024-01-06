@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ui_challenge_practice/furniture_ui/furniture_more.dart';
 
 class ColorPicker {
   static const Color backgroundColor = Color.fromRGBO(92, 97, 130, 1);
@@ -6,10 +7,10 @@ class ColorPicker {
   static const Color secondaryColor = Color.fromRGBO(250, 203, 154, 1);
 }
 
-List<Map<String, String>> chairs = [
-  {'title': 'Simple Chair', 'image': 'chair2.png'},
-  {'title': 'Sofa Chair', 'image': 'chair4.png'},
-  {'title': 'Modern Chair', 'image': 'chair.png'},
+List<Map<String, dynamic>> chairs = [
+  {'title': 'Simple Chair', 'image': 'chair2.png', 'price': 75},
+  {'title': 'Sofa Chair', 'image': 'chair4.png', 'price': 1200},
+  {'title': 'Modern Chair', 'image': 'chair1.png', 'price': 2500},
 ];
 
 class FurnitureHome extends StatelessWidget {
@@ -58,8 +59,14 @@ class FurnitureHome extends StatelessWidget {
                               width: MediaQuery.of(context).size.width * 0.7,
                               color: ColorPicker.primaryColor,
                               child: Align(
-                                alignment: const Alignment(0, -5),
-                                child: Image.asset('assets/bed.png'),
+                                alignment: Alignment.topCenter,
+                                child: Container(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.38,
+                                  color: Colors.transparent,
+                                  alignment: Alignment.center,
+                                  child: Image.asset('assets/bed.png'),
+                                ),
                               ),
                             ),
                           ),
@@ -140,11 +147,10 @@ class FurnitureHome extends StatelessWidget {
                 ),
               ),
               Expanded(
-                child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
-                  child: Column(children: [
-                    Row(
+                child: Column(children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(30, 20, 30, 10),
+                    child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
@@ -154,71 +160,79 @@ class FurnitureHome extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                               letterSpacing: 1),
                         ),
-                        Row(
-                          children: [
-                            Text(
-                              'more'.toUpperCase(),
-                              style: TextStyle(
-                                fontSize: 12,
-                                letterSpacing: 1,
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => const FurnitureMore()));
+                          },
+                          child: Row(
+                            children: [
+                              Text(
+                                'more'.toUpperCase(),
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  letterSpacing: 1,
+                                  color:
+                                      ColorPicker.primaryColor.withOpacity(0.5),
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              Icon(
+                                Icons.arrow_forward,
+                                size: 15,
                                 color:
                                     ColorPicker.primaryColor.withOpacity(0.5),
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            Icon(
-                              Icons.arrow_forward,
-                              size: 15,
-                              color: ColorPicker.primaryColor.withOpacity(0.5),
-                            )
-                          ],
+                              )
+                            ],
+                          ),
                         ),
                       ],
                     ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    Expanded(
-                      child: ListView.separated(
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (context, index) {
-                            var chair = chairs[index];
-                            return Column(
-                              children: [
-                                Container(
-                                  width: 100,
-                                  height: 100,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(30),
-                                      color: ColorPicker.primaryColor),
-                                  padding: const EdgeInsets.all(10),
-                                  child: Center(
-                                      child: Image.asset(
-                                          'assets/${chair['image']}')),
-                                ),
-                                const SizedBox(
-                                  height: 8,
-                                ),
-                                Text(
-                                  chair['title'] ?? "",
-                                  style: const TextStyle(
-                                    color: ColorPicker.primaryColor,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
-                            );
-                          },
-                          separatorBuilder: (context, index) => const SizedBox(
-                                width: 20,
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  Expanded(
+                    child: ListView.separated(
+                        padding: const EdgeInsets.symmetric(horizontal: 25),
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) {
+                          var chair = chairs[index];
+                          return Column(
+                            children: [
+                              Container(
+                                width: 100,
+                                height: 100,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(30),
+                                    color: ColorPicker.primaryColor),
+                                padding: const EdgeInsets.all(10),
+                                child: Center(
+                                    child: Image.asset(
+                                        'assets/${chair['image']}')),
                               ),
-                          itemCount: chairs.length),
-                    ),
-                  ]),
-                ),
+                              const SizedBox(
+                                height: 8,
+                              ),
+                              Text(
+                                chair['title'] ?? "",
+                                style: const TextStyle(
+                                  color: ColorPicker.primaryColor,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                        separatorBuilder: (context, index) => const SizedBox(
+                              width: 20,
+                            ),
+                        itemCount: chairs.length),
+                  ),
+                ]),
               ),
             ],
           ),
